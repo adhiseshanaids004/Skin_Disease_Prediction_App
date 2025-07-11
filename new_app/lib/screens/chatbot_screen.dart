@@ -94,12 +94,14 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                         Icon(
                           Icons.chat_bubble_outline,
                           size: 64,
+                          // ignore: deprecated_member_use
                           color: colors.onSurface.withOpacity(0.3),
                         ),
                         const SizedBox(height: 16),
                         Text(
                           'start_chatting'.tr(),
                           style: theme.textTheme.bodyLarge?.copyWith(
+                            // ignore: deprecated_member_use
                             color: colors.onSurface.withOpacity(0.7),
                           ),
                         ),
@@ -148,6 +150,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
           ),
           boxShadow: [
             BoxShadow(
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.1),
               blurRadius: 4,
               offset: const Offset(0, 2),

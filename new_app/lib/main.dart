@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +13,7 @@ import 'screens/splash_screen.dart';
 import 'bottom_nav_controller.dart';
 import 'services/auth_service.dart';
 import 'firebase_options.dart';
+import 'routes.dart'; // ✅ Make sure this contains Routes.login = '/login';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +30,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthService()), // ✅ fixed
+        ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(
           create: (_) => ThemeProvider(isDarkMode: isDarkMode, prefs: prefs),
         ),
@@ -53,8 +53,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
-
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
@@ -66,24 +64,12 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-          home: StreamBuilder<User?>(
-            stream: authService.authStateChanges,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const SplashScreen();
-              }
-
-              if (snapshot.hasData) {
-                return const BottomNavController();
-              }
-
-              return const LoginScreen();
-            },
-          ),
+          home: const SplashScreen(), // ✅ Always starts with splash screen
           routes: {
-            '/login': (context) => const LoginScreen(),
+            Routes.login: (context) => const LoginScreen(),
             '/register': (context) => const RegisterScreen(),
             '/profile': (context) => const ProfileScreen(),
+            '/home': (context) => const BottomNavController(), // optional if needed
           },
         );
       },

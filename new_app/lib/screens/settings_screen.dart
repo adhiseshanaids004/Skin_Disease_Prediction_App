@@ -16,6 +16,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('language_code', locale.languageCode);
     if (mounted) {
+      // ignore: use_build_context_synchronously
       await context.setLocale(locale);
     }
   }

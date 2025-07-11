@@ -80,6 +80,7 @@ class ResultScreen extends StatelessWidget {
                       child: Text(
                         '${'confidence'.tr()}: $confidence',
                         style: textTheme.bodySmall?.copyWith(
+                          // ignore: deprecated_member_use
                           color: textTheme.bodySmall?.color?.withOpacity(0.8),
                         ),
                       ),

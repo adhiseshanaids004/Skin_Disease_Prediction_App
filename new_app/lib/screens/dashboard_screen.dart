@@ -37,6 +37,7 @@ class DashboardScreen extends StatelessWidget {
         actions: [
           PopupMenuButton<String>(
             icon: CircleAvatar(
+              // ignore: deprecated_member_use
               backgroundColor: colors.primary.withOpacity(0.2),
               child: const Icon(Icons.person, color: Colors.blueGrey),
             ),
@@ -124,7 +125,7 @@ class DashboardScreen extends StatelessWidget {
                   DashboardButton(
                     icon: Icons.chat,
                     title: 'chatbot'.tr(),
-                    color: colors.tertiary ?? colors.secondaryContainer,
+                    color: colors.tertiary,
                     onTap: () {
                       Navigator.pushNamed(context, '/chat');
                     },

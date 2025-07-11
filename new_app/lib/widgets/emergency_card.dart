@@ -8,6 +8,7 @@ class EmergencyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color bgColor = Theme.of(context).brightness == Brightness.dark
+        // ignore: deprecated_member_use
         ? Colors.white.withOpacity(0.05)
         : Colors.red.shade50;
 
@@ -22,6 +23,7 @@ class EmergencyCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
+              // ignore: deprecated_member_use
               color: Colors.redAccent.withOpacity(0.2),
               blurRadius: 10,
               offset: const Offset(0, 4),

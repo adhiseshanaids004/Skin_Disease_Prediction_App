@@ -49,12 +49,14 @@ class HistoryScreen extends StatelessWidget {
                   Icon(
                     Icons.history_toggle_off,
                     size: 64,
+                    // ignore: deprecated_member_use
                     color: colors.onSurface.withOpacity(0.5),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     'no_history'.tr(),
                     style: theme.textTheme.bodyLarge?.copyWith(
+                      // ignore: deprecated_member_use
                       color: colors.onSurface.withOpacity(0.7),
                     ),
                   ),
@@ -107,6 +109,7 @@ class HistoryScreen extends StatelessWidget {
                                   vertical: 4,
                                 ),
                                 decoration: BoxDecoration(
+                                  // ignore: deprecated_member_use
                                   color: colors.primary.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -124,6 +127,7 @@ class HistoryScreen extends StatelessWidget {
                           Text(
                             '${'date'.tr()}: ${_formatDate(result.date)}',
                             style: theme.textTheme.bodyMedium?.copyWith(
+                              // ignore: deprecated_member_use
                               color: colors.onSurface.withOpacity(0.7),
                             ),
                           ),

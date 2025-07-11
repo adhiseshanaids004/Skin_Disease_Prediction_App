@@ -32,6 +32,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    // ignore: unused_local_variable
     final isDark = theme.brightness == Brightness.dark;
     
     return Scaffold(
@@ -44,6 +45,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
               offset: const Offset(0, 3),
@@ -57,6 +59,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
                 backgroundColor: theme.cardColor,
                 selectedItemColor: theme.colorScheme.secondary,
+                // ignore: deprecated_member_use
                 unselectedItemColor: theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
                 selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
                 unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),

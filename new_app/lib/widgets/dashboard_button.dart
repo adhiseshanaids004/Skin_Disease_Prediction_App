@@ -23,20 +23,26 @@ class DashboardButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
+      // ignore: deprecated_member_use
       splashColor: color.withOpacity(0.2),
+      // ignore: deprecated_member_use
       highlightColor: color.withOpacity(0.1),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: isDark 
+              // ignore: deprecated_member_use
               ? color.withOpacity(0.15)
+              // ignore: deprecated_member_use
               : color.withOpacity(0.1),
           border: Border.all(
+            // ignore: deprecated_member_use
             color: color.withOpacity(0.3),
             width: 1,
           ),
           boxShadow: [
             BoxShadow(
+              // ignore: deprecated_member_use
               color: color.withOpacity(isDark ? 0.2 : 0.1),
               blurRadius: 8,
               spreadRadius: 1,
@@ -51,6 +57,7 @@ class DashboardButton extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
+                // ignore: deprecated_member_use
                 color: color.withOpacity(0.15),
                 shape: BoxShape.circle,
               ),
@@ -70,9 +77,13 @@ class DashboardButton extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: isDark 
+                    // ignore: deprecated_member_use
                     ? color.withOpacity(0.9)
+                    // ignore: deprecated_member_use
                     : color.withBlue((color.blue * 0.8).toInt())
+                             // ignore: deprecated_member_use
                              .withGreen((color.green * 0.8).toInt())
+                             // ignore: deprecated_member_use
                              .withRed((color.red * 0.8).toInt()),
               ),
             ),

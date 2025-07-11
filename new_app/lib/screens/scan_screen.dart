@@ -49,6 +49,7 @@ class _ScanScreenState extends State<ScanScreen> {
 
   void _showImageSourceOptions() {
     final theme = Theme.of(context);
+    // ignore: unused_local_variable
     final isDark = theme.brightness == Brightness.dark;
 
     showModalBottomSheet(
@@ -94,6 +95,7 @@ class _ScanScreenState extends State<ScanScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    // ignore: unused_local_variable
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(

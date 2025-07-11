@@ -15,35 +15,67 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _obscurePassword = true;
+  bool _obscurePassword = true; 
   bool _isLoading = false;
   String? _errorMessage;
 
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
+    
+    if (!mounted) return;
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
-    final authService = Provider.of<AuthService>(context, listen: false);
-    final result = await authService.signUp(
-      name: _nameController.text.trim(),
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+    try {
+      final authService = Provider.of<AuthService>(context, listen: false);
+      // ignore: avoid_print
+      print('Attempting to register user...');
+      
+      final result = await authService.signUp(
+        name: _nameController.text.trim(),
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      // .timeout(const Duration(seconds: 30), onTimeout: () {
+      //   return {'success': false, 'error': 'Request timed out. Please check your internet connection.'};
+      // });
 
-    if (mounted) {
+      // ignore: avoid_print
+      print('Registration result: $result');
+      
+      if (!mounted) return;
+      
       setState(() => _isLoading = false);
+      
       if (result['success'] == true) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const BottomNavController()),
+        // ignore: avoid_print
+        print('Registration successful, navigating to dashboard...');
+        // Navigate to the home screen using named route
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          '/home', 
           (route) => false,
         );
       } else {
         setState(() {
-          _errorMessage = result['error'] ?? 'Registration failed';
+          _errorMessage = result['error']?.toString() ?? 'Registration failed. Please try again.';
+          // ignore: avoid_print
+          print('Registration error: $_errorMessage');
+        });
+      }
+    } catch (e, stackTrace) {
+      // ignore: avoid_print
+      print('Error during registration: $e');
+      // ignore: avoid_print
+      print('Stack trace: $stackTrace');
+      
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = 'An error occurred: ${e.toString()}';
+          // ignore: avoid_print
+          print('Error message set to: $_errorMessage');
         });
       }
     }
@@ -114,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Email',
-                    labelStyle: const TextStyle(color: Colors.grey),
+                    labelStyle: const TextStyle(color: Colors.grey), 
                     prefixIcon: const Icon(Icons.email, color: Colors.grey),
                     filled: true,
                     fillColor: Colors.grey[900],
