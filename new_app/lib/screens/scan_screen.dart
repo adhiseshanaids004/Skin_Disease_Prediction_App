@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../services/ai_service.dart';
+import '../services/firebase_service.dart';
+import '../models/scan_result_model.dart';
 import 'result_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -30,19 +32,38 @@ class _ScanScreenState extends State<ScanScreen> {
     if (_selectedImage == null) return;
     setState(() => _loading = true);
 
-    final result = await AIService.predictDisease(_selectedImage!.path);
+    try {
+      final result = await AIService.predictDisease(_selectedImage!.path);
+      
+      // Create ScanResult and save to Firebase
+      final scanResult = ScanResult(
+        disease: result['prediction'],
+        stage: result['confidence'],
+        description: result['description'],
+        remedy: '', // You can add remedies based on the disease
+        precautions: '', // You can add precautions based on the disease
+        date: DateTime.now(),
+      );
+      
+      await FirebaseService().saveScanResult(scanResult);
 
-    setState(() => _loading = false);
-    if (mounted) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ResultScreen(
-            prediction: result['prediction'],
-            confidence: result['confidence'],
-            description: result['description'],
+      setState(() => _loading = false);
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResultScreen(
+              prediction: result['prediction'],
+              confidence: result['confidence'],
+              description: result['description'],
+            ),
           ),
-        ),
+        );
+      }
+    } catch (e) {
+      setState(() => _loading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
       );
     }
   }
