@@ -13,10 +13,18 @@ import 'screens/splash_screen.dart';
 import 'bottom_nav_controller.dart';
 import 'services/auth_service.dart';
 import 'firebase_options.dart';
-import 'routes.dart'; // ✅ Make sure this contains Routes.login = '/login';
+import 'routes.dart'; 
+import 'services/ai_service.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+  await AIService.initialize();
+} catch (e) {
+  debugPrint('Failed to initialize AI Service: $e');
+}
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

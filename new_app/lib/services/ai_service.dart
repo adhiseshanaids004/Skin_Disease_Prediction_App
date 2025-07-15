@@ -1,19 +1,55 @@
 // lib/services/ai_service.dart
 
-class AIService {
-  static Future<Map<String, dynamic>> predictDisease(String imagePath) async {
-    // Simulate delay to mimic real AI model prediction
-    await Future.delayed(const Duration(seconds: 2));
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'skin_disease_classifier.dart';
 
-    // Return a mock result
-    return {
-      'disease': 'Eczema',
-      'description':
-          'Eczema is a condition that causes the skin to become inflamed, itchy, red, cracked, and rough.',
-      'remedy':
-          'Apply moisturizers frequently, use anti-itch creams, avoid long hot showers.',
-      'doctor': 'Consult a Dermatologist',
-      'prevent': 'Keep your skin hydrated and avoid known irritants or allergens.',
-    };
+class AIService {
+  static final SkinDiseaseClassifier _classifier = SkinDiseaseClassifier();
+  static bool _isInitialized = false;
+
+  static Future<void> initialize() async {
+    if (_isInitialized) return;
+    
+    try {
+      await _classifier.initialize();
+      _isInitialized = true;
+      debugPrint('AI Service initialized successfully');
+    } catch (e) {
+      debugPrint('Failed to initialize AI Service: $e');
+      rethrow;
+    }
+  }
+
+  static Future<Map<String, dynamic>> predictDisease(String imagePath) async {
+    if (!_isInitialized) {
+      await initialize();
+    }
+
+    try {
+      final file = File(imagePath);
+      if (!await file.exists()) {
+        throw Exception('Image file not found');
+      }
+
+      final result = await _classifier.predict(file);
+      
+      // Format the result to match what the UI expects
+      return {
+        'prediction': result['disease'],
+        'confidence': (result['confidence'] as double).toStringAsFixed(2),
+        'description': result['description'],
+        'remedy': result['remedy'],
+        'doctor': result['doctor'],
+      };
+    } catch (e) {
+      debugPrint('Error during prediction: $e');
+      rethrow;
+    }
+  }
+
+  static void dispose() {
+    _classifier.dispose();
+    _isInitialized = false;
   }
 }
