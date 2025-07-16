@@ -57,6 +57,7 @@ class HealthSummary extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.1),
               blurRadius: 4,
               offset: const Offset(0, 2),
@@ -76,6 +77,7 @@ class HealthSummary extends StatelessWidget {
             Text(
               label,
               style: theme.textTheme.bodyMedium?.copyWith(
+                // ignore: deprecated_member_use
                 color: theme.textTheme.bodyMedium?.color?.withOpacity(0.8),
               ),
               textAlign: TextAlign.center,
@@ -103,6 +105,7 @@ class HealthSummary extends StatelessWidget {
             Text(
               'loading'.tr(),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                // ignore: deprecated_member_use
                 color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.8),
               ),
               textAlign: TextAlign.center,

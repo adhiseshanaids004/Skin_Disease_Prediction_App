@@ -51,12 +51,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   Icon(
                     Icons.history_toggle_off,
                     size: 64,
+                    // ignore: deprecated_member_use
                     color: colors.onSurface.withOpacity(0.5),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     'no_history'.tr(),
                     style: theme.textTheme.bodyLarge?.copyWith(
+                      // ignore: deprecated_member_use
                       color: colors.onSurface.withOpacity(0.7),
                     ),
                   ),
@@ -130,12 +132,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             Icon(
                               Icons.access_time,
                               size: 16,
+                              // ignore: deprecated_member_use
                               color: colors.onSurface.withOpacity(0.5),
                             ),
                             const SizedBox(width: 4),
                             Text(
                               '${result.date.day}/${result.date.month}/${result.date.year}',
                               style: theme.textTheme.bodySmall?.copyWith(
+                                // ignore: deprecated_member_use
                                 color: colors.onSurface.withOpacity(0.5),
                               ),
                             ),

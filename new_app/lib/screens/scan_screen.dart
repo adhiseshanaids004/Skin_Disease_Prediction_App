@@ -62,6 +62,7 @@ class _ScanScreenState extends State<ScanScreen> {
       }
     } catch (e) {
       setState(() => _loading = false);
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );

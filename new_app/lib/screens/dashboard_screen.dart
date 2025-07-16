@@ -44,6 +44,7 @@ class DashboardScreen extends StatelessWidget {
         actions: [
           PopupMenuButton<String>(
             icon: CircleAvatar(
+              // ignore: deprecated_member_use
               backgroundColor: colors.primary.withOpacity(0.2),
               child: const Icon(Icons.person, color: Colors.blueGrey),
             ),

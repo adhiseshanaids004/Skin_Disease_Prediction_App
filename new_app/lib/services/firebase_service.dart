@@ -49,7 +49,7 @@ class FirebaseService {
         .orderBy('date', descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs
-            .map((doc) => ScanResult.fromMap(doc.data()!))
+            .map((doc) => ScanResult.fromMap(doc.data()))
             .toList());
   }
 
