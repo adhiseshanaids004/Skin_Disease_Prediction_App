@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import '../services/auth_service.dart';
 import '../widgets/dashboard_button.dart';
 import '../widgets/profile_card.dart';
 import '../widgets/health_summary.dart';
 import '../widgets/health_tip_carousel.dart';
 import '../widgets/emergency_card.dart';
+import '../bottom_nav_controller.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+  final Function(int) onNavItemTapped;
+  
+  const DashboardScreen({
+    super.key, 
+    required this.onNavItemTapped,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +44,6 @@ class DashboardScreen extends StatelessWidget {
         actions: [
           PopupMenuButton<String>(
             icon: CircleAvatar(
-              // ignore: deprecated_member_use
               backgroundColor: colors.primary.withOpacity(0.2),
               child: const Icon(Icons.person, color: Colors.blueGrey),
             ),
@@ -111,7 +117,7 @@ class DashboardScreen extends StatelessWidget {
                     title: 'scan_now'.tr(),
                     color: colors.primary,
                     onTap: () {
-                      Navigator.pushNamed(context, '/scan');
+                      onNavItemTapped(1); // Index for ScanScreen in BottomNavController
                     },
                   ),
                   DashboardButton(
@@ -119,7 +125,7 @@ class DashboardScreen extends StatelessWidget {
                     title: 'history'.tr(),
                     color: colors.secondary,
                     onTap: () {
-                      Navigator.pushNamed(context, '/history');
+                      onNavItemTapped(2); // Index for HistoryScreen in BottomNavController
                     },
                   ),
                   DashboardButton(
@@ -127,7 +133,7 @@ class DashboardScreen extends StatelessWidget {
                     title: 'chatbot'.tr(),
                     color: colors.tertiary,
                     onTap: () {
-                      Navigator.pushNamed(context, '/chat');
+                      onNavItemTapped(3); // Index for ChatBotScreen in BottomNavController
                     },
                   ),
                   DashboardButton(
@@ -135,7 +141,7 @@ class DashboardScreen extends StatelessWidget {
                     title: 'settings'.tr(),
                     color: colors.primaryContainer,
                     onTap: () {
-                      Navigator.pushNamed(context, '/settings');
+                      onNavItemTapped(4); // Index for SettingsScreen in BottomNavController
                     },
                   ),
                 ],
@@ -143,21 +149,103 @@ class DashboardScreen extends StatelessWidget {
               const SizedBox(height: 24),
               const HealthSummary(),
               const SizedBox(height: 24),
+              const HealthTipCarousel(),
+              const SizedBox(height: 24),
               Text(
-                'health_tips'.tr(),
+                'emergency_help'.tr(),
                 style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: colors.onSurface,
+                  color: colors.error,
                 ),
               ),
               const SizedBox(height: 8),
-              const HealthTipCarousel(),
-              const SizedBox(height: 24),
-              const EmergencyCard(),
-              const SizedBox(height: 24),
+              EmergencyCard(
+                backgroundColor: colors.errorContainer,
+                titleColor: colors.onErrorContainer,
+                buttonColor: colors.error,
+                buttonTextColor: colors.onError,
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class EmergencyCard extends StatelessWidget {
+  final Color backgroundColor;
+  final Color titleColor;
+  final Color buttonColor;
+  final Color buttonTextColor;
+
+  const EmergencyCard({
+    super.key,
+    this.backgroundColor = Colors.red,
+    this.titleColor = Colors.white,
+    this.buttonColor = Colors.red,
+    this.buttonTextColor = Colors.white,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.warning_amber_rounded,
+                color: titleColor,
+                size: 24,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'emergency_help'.tr(),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: titleColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // Add emergency call logic here
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: buttonColor,
+                    foregroundColor: buttonTextColor,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  icon: const Icon(Icons.phone, size: 20),
+                  label: Text(
+                    'call_emergency'.tr(),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

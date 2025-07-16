@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:flutter/foundation.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SkinDiseaseClassifier {
   static const String _modelPath = 'assets/models/skin_disease_model.tflite';
@@ -141,66 +142,57 @@ List<List<List<List<double>>>> _preprocessImage(img.Image image) {
   }
 
   String _getDiseaseDescription(String disease) {
-    final descriptions = {
-      'Actinic keratoses and intraepithelial carcinoma': 
-          'A precancerous skin condition caused by long-term sun exposure.',
-      'Basal cell carcinoma': 
-          'The most common type of skin cancer, often appearing as a waxy bump or flat, flesh-colored lesion.',
-      'Benign keratosis-like lesions': 
-          'Noncancerous skin growths that develop from skin cells called keratinocytes.',
-      'Dermatofibroma': 
-          'A common, benign skin growth that usually appears as a firm, raised nodule.',
-      'Melanoma': 
-          'The most serious type of skin cancer that develops in the cells that produce melanin.',
-      'Melanocytic nevi': 
-          'Common moles, which are usually harmless but should be monitored for changes.',
-      'Vascular lesions': 
-          'Abnormal growths or malformations of blood vessels in the skin.',
+    // Map the disease names to their localization keys
+    final diseaseKeys = {
+      'Actinic keratoses and intraepithelial carcinoma': 'actinic_keratoses',
+      'Basal cell carcinoma': 'basal_cell_carcinoma',
+      'Benign keratosis-like lesions': 'benign_keratosis',
+      'Dermatofibroma': 'dermatofibroma',
+      'Melanoma': 'melanoma',
+      'Melanocytic nevi': 'melanocytic_nevi',
+      'Vascular lesions': 'vascular_lesions',
     };
     
-    return descriptions[disease] ?? 'No description available.';
+    final key = diseaseKeys[disease] ?? '';
+    return key.isNotEmpty 
+        ? 'descriptions.$key'.tr() 
+        : 'No description available.';
   }
 
   String _getRemedy(String disease) {
-    final remedies = {
-      'Actinic keratoses and intraepithelial carcinoma': 
-          'Cryotherapy, topical medications, or surgical removal. Regular skin checks are recommended.',
-      'Basal cell carcinoma': 
-          'Surgical removal, Mohs surgery, or radiation therapy. Sun protection is crucial.',
-      'Benign keratosis-like lesions': 
-          'Usually no treatment needed, but can be removed if bothersome through cryotherapy or curettage.',
-      'Dermatofibroma': 
-          'Typically doesn\'t require treatment, but can be surgically removed if desired.',
-      'Melanoma': 
-          'Surgical removal is the primary treatment. Early detection is critical for better outcomes.',
-      'Melanocytic nevi': 
-          'No treatment needed unless changes are observed. Regular skin checks are recommended.',
-      'Vascular lesions': 
-          'Treatment options include laser therapy, sclerotherapy, or surgery, depending on the type and location.',
+    // Map the disease names to their localization keys
+    final diseaseKeys = {
+      'Actinic keratoses and intraepithelial carcinoma': 'actinic_keratoses',
+      'Basal cell carcinoma': 'basal_cell_carcinoma',
+      'Benign keratosis-like lesions': 'benign_keratosis',
+      'Dermatofibroma': 'dermatofibroma',
+      'Melanoma': 'melanoma',
+      'Melanocytic nevi': 'melanocytic_nevi',
+      'Vascular lesions': 'vascular_lesions',
     };
     
-    return remedies[disease] ?? 'Consult a healthcare professional for treatment options.';
+    final key = diseaseKeys[disease] ?? '';
+    return key.isNotEmpty 
+        ? 'remedies.$key'.tr() 
+        : 'Consult a healthcare professional for treatment options.';
   }
 
   String _getDoctorRecommendation(String disease) {
-    final recommendations = {
-      'Actinic keratoses and intraepithelial carcinoma': 
-          'Dermatologist for evaluation and treatment.',
-      'Basal cell carcinoma': 
-          'Dermatologist or Mohs surgeon for treatment options.',
-      'Benign keratosis-like lesions': 
-          'Dermatologist if the lesion changes in appearance or becomes symptomatic.',
-      'Dermatofibroma': 
-          'Dermatologist if the growth changes or causes discomfort.',
-      'Melanoma': 
-          'Immediate consultation with a dermatologist or surgical oncologist.',
-      'Melanocytic nevi': 
-          'Dermatologist for regular skin checks and evaluation of any changing moles.',
-      'Vascular lesions': 
-          'Dermatologist or vascular specialist for evaluation and treatment options.',
+    // Map the disease names to their localization keys
+    final diseaseKeys = {
+      'Actinic keratoses and intraepithelial carcinoma': 'actinic_keratoses',
+      'Basal cell carcinoma': 'basal_cell_carcinoma',
+      'Benign keratosis-like lesions': 'benign_keratosis',
+      'Dermatofibroma': 'dermatofibroma',
+      'Melanoma': 'melanoma',
+      'Melanocytic nevi': 'melanocytic_nevi',
+      'Vascular lesions': 'vascular_lesions',
     };
     
-    return recommendations[disease] ?? 'Consult a dermatologist for proper evaluation.';
+    final key = diseaseKeys[disease] ?? '';
+    return key.isNotEmpty 
+        ? 'doctor_recommendations.$key'.tr() 
+        : 'Consult a dermatologist for proper evaluation.';
   }
 
  

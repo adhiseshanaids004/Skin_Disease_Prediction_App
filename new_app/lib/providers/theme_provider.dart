@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../theme/theme_config.dart';
 
 class ThemeProvider with ChangeNotifier {
   static const String _themeKey = 'isDarkMode';
@@ -13,7 +12,11 @@ class ThemeProvider with ChangeNotifier {
 
   bool get isDarkMode => _isDarkMode;
 
-  ThemeData get currentTheme => _isDarkMode ? AppThemes.darkTheme : AppThemes.lightTheme;
+  ThemeData get currentTheme {
+    return _isDarkMode 
+      ? ThemeData.dark(useMaterial3: true)
+      : ThemeData.light(useMaterial3: true);
+  }
 
   Future<void> toggleTheme() async {
     _isDarkMode = !_isDarkMode;

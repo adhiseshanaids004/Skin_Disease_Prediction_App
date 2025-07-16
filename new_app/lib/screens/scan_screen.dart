@@ -85,7 +85,7 @@ class _ScanScreenState extends State<ScanScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'choose_image_source'.tr(),
+              'choose_image'.tr(),
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),

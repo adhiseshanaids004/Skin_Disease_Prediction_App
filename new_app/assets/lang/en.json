@@ -68,10 +68,81 @@
   "predicted_disease": "Predicted Disease",
   "remedies": "Remedies / Suggestions",
   "stage_info": "Stage Information",
+  "health_tips": "Health Tips",
   "health_tip_1": "Stay hydrated by drinking at least 8 glasses of water daily.",
   "health_tip_2": "Avoid excessive sun exposure to protect your skin.",
   "health_tip_3": "Use moisturizer daily for dry skin.",
   "health_tip_4": "Eat fruits and vegetables rich in Vitamin C.",
   "health_tip_5": "Don't skip sunscreen when going outside.",
-  "health_tips": "Health Tips"
+  "error_loading": "Error: Failed to load data",
+  "call_emergency": "Call Emergency",
+  "emergency_help": "Emergency Help",
+  "tap_to_call": "Tap to call",
+  "emergency_help_description": "If you need urgent assistance, please press the button below",
+  
+  "diseases": {
+    "actinic_keratoses": "Actinic keratoses and intraepithelial carcinoma",
+    "basal_cell_carcinoma": "Basal cell carcinoma",
+    "benign_keratosis": "Benign keratosis-like lesions",
+    "dermatofibroma": "Dermatofibroma",
+    "melanoma": "Melanoma",
+    "melanocytic_nevi": "Melanocytic nevi",
+    "vascular_lesions": "Vascular lesions"
+  },
+  
+  "descriptions": {
+    "actinic_keratoses": "A precancerous skin condition caused by long-term sun exposure.",
+    "basal_cell_carcinoma": "The most common type of skin cancer, often appearing as a waxy bump or flat, flesh-colored lesion.",
+    "benign_keratosis": "Noncancerous skin growths that develop from skin cells called keratinocytes.",
+    "dermatofibroma": "A common, benign skin growth that usually appears as a firm, raised nodule.",
+    "melanoma": "The most serious type of skin cancer that develops in the cells that produce melanin.",
+    "melanocytic_nevi": "Common moles, which are usually harmless but should be monitored for changes.",
+    "vascular_lesions": "Abnormal growths or malformations of blood vessels in the skin."
+  },
+  
+  "remedies": {
+    "actinic_keratoses": "Cryotherapy, topical medications, or surgical removal. Regular skin checks are recommended.",
+    "basal_cell_carcinoma": "Surgical removal, Mohs surgery, or radiation therapy. Sun protection is crucial.",
+    "benign_keratosis": "Usually no treatment needed, but can be removed if bothersome through cryotherapy or curettage.",
+    "dermatofibroma": "Typically doesn't require treatment, but can be surgically removed if desired.",
+    "melanoma": "Surgical removal is the primary treatment. Early detection is critical for better outcomes.",
+    "melanocytic_nevi": "No treatment needed unless changes are observed. Regular skin checks are recommended.",
+    "vascular_lesions": "Treatment options include laser therapy, sclerotherapy, or surgery, depending on the type and location."
+  },
+  
+  "doctor_recommendations": {
+    "actinic_keratoses": "Dermatologist for evaluation and treatment.",
+    "basal_cell_carcinoma": "Dermatologist or Mohs surgeon for treatment options.",
+    "benign_keratosis": "Dermatologist if the lesion changes in appearance or becomes symptomatic.",
+    "dermatofibroma": "Dermatologist if the growth changes or causes discomfort.",
+    "melanoma": "Immediate consultation with a dermatologist or surgical oncologist.",
+    "melanocytic_nevi": "Dermatologist for regular skin checks and evaluation of any changing moles.",
+    "vascular_lesions": "Dermatologist or vascular specialist for evaluation and treatment options."
+  },
+  
+  "common_questions": {
+    "what_is_skin_cancer": "What is skin cancer?",
+    "how_to_prevent_skin_cancer": "How can I prevent skin cancer?",
+    "when_to_see_doctor": "When should I see a doctor about a mole?",
+    "skin_self_exam": "How to perform a skin self-exam?",
+    "risk_factors": "What are the risk factors for skin cancer?"
+  },
+  
+  "answers": {
+    "skin_cancer": "Skin cancer is the abnormal growth of skin cells, most often developing on skin exposed to the sun. The main types are basal cell carcinoma, squamous cell carcinoma, and melanoma.",
+    "prevention_tips": [
+      "Use broad-spectrum sunscreen with SPF 30 or higher",
+      "Seek shade when the sun is strongest (10 a.m. to 4 p.m.)",
+      "Wear protective clothing, including a hat and UV-blocking sunglasses",
+      "Avoid tanning beds",
+      "Get regular skin cancer screenings"
+    ],
+    "warning_signs": [
+      "Asymmetry: One half doesn't match the other",
+      "Border: Irregular, scalloped, or poorly defined border",
+      "Color: Varies from one area to another",
+      "Diameter: Larger than 6mm (about the size of a pencil eraser)",
+      "Evolving: Mole or skin lesion looks different from the rest or is changing in size, shape, or color"
+    ]
+  }
 }

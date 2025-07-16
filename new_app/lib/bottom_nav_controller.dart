@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:new_app/screens/chatbot_screen.dart';
-import 'package:new_app/screens/dashboard_screen.dart';
-import 'package:new_app/screens/history_screen.dart';
-import 'package:new_app/screens/scan_screen.dart';
-import 'package:new_app/screens/settings_screen.dart';
+import 'package:skin_sense/screens/chatbot_screen.dart';
+import 'package:skin_sense/screens/dashboard_screen.dart';
+import 'package:skin_sense/screens/history_screen.dart';
+import 'package:skin_sense/screens/scan_screen.dart';
+import 'package:skin_sense/screens/settings_screen.dart';
 
 class BottomNavController extends StatefulWidget {
   const BottomNavController({super.key});
@@ -16,14 +16,21 @@ class BottomNavController extends StatefulWidget {
 class _BottomNavControllerState extends State<BottomNavController> {
   int _selectedIndex = 0;
   late final List<Widget> _pages;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     _pages = [
-      const DashboardScreen(),
+      DashboardScreen(
+        onNavItemTapped: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
       const ScanScreen(),
-      HistoryScreen(),  // This is not const because it has non-constant state
+      HistoryScreen(),
       const ChatBotScreen(),
       const SettingsScreen(),
     ];
@@ -32,12 +39,15 @@ class _BottomNavControllerState extends State<BottomNavController> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // ignore: unused_local_variable
     final isDark = theme.brightness == Brightness.dark;
     
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: theme.scaffoldBackgroundColor,
-      body: _pages[_selectedIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -45,7 +55,6 @@ class _BottomNavControllerState extends State<BottomNavController> {
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
               offset: const Offset(0, 3),
@@ -59,7 +68,6 @@ class _BottomNavControllerState extends State<BottomNavController> {
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
                 backgroundColor: theme.cardColor,
                 selectedItemColor: theme.colorScheme.secondary,
-                // ignore: deprecated_member_use
                 unselectedItemColor: theme.textTheme.bodyMedium?.color?.withOpacity(0.6),
                 selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
                 unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),

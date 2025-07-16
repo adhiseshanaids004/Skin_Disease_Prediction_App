@@ -98,12 +98,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              result.disease,
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
+                            Flexible(
+                              child: Text(
+                                result.disease,
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                               ),
                             ),
+                            const SizedBox(width: 8), 
                             Text(
                               result.stage,
                               style: theme.textTheme.bodyMedium?.copyWith(

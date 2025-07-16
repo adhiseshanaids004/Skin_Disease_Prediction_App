@@ -7,69 +7,27 @@ class EmergencyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color bgColor = Theme.of(context).brightness == Brightness.dark
-        // ignore: deprecated_member_use
-        ? Colors.white.withOpacity(0.05)
-        : Colors.red.shade50;
-
-    return InkWell(
-      onTap: () {
-        // TODO: Implement emergency call
-      },
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              // ignore: deprecated_member_use
-              color: Colors.redAccent.withOpacity(0.2),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
+    return Container(
+      margin: const EdgeInsets.all(16),
+      child: ElevatedButton.icon(
+        onPressed: () {
+          // TODO: Implement emergency call
+        },
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          backgroundColor: Colors.red.shade600,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            const Icon(Icons.warning_amber_rounded,
-                size: 42, color: Colors.redAccent),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'emergency'.tr(),
-                    style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'tap_to_call'.tr(),
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.teal.shade600,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Icon(Icons.phone, color: Colors.white),
-              ),
-            ),
-          ],
+        icon: const Icon(Icons.phone, color: Colors.white),
+        label: Text(
+          'emergency_call'.tr(),
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
         ),
       ),
     );

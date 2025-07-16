@@ -1,14 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   User? get currentUser => _auth.currentUser;
 
-  Stream<User?> get authStateChanges => _auth.authStateChanges();
+  // Stream that emits the current user when authentication state changes
+  Stream<User?> get authStateChanges => _auth.authStateChanges().asyncMap((user) async {
+        if (user != null) {
+          // Save user login state
+          final prefs = await _prefs;
+          await prefs.setString('user_uid', user.uid);
+        }
+        return user;
+      });
+
+  // Check if user is logged in
+  Future<bool> isLoggedIn() async {
+    final prefs = await _prefs;
+    return prefs.getString('user_uid') != null || _auth.currentUser != null;
+  }
+
+  // Get current user UID
+  Future<String?> getCurrentUserId() async {
+    final prefs = await _prefs;
+    return prefs.getString('user_uid') ?? _auth.currentUser?.uid;
+  }
 
   Future<Map<String, dynamic>> signIn(String email, String password) async {
     try {
@@ -16,6 +38,12 @@ class AuthService with ChangeNotifier {
         email: email,
         password: password,
       );
+      
+      if (result.user != null) {
+        final prefs = await _prefs;
+        await prefs.setString('user_uid', result.user!.uid);
+      }
+      
       notifyListeners();
       return {'success': true, 'user': result.user};
     } on FirebaseAuthException catch (e) {
@@ -57,8 +85,14 @@ class AuthService with ChangeNotifier {
   }
 
   Future<void> signOut() async {
-    await _auth.signOut();
-    notifyListeners();
+    try {
+      final prefs = await _prefs;
+      await prefs.remove('user_uid');
+      await _auth.signOut();
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error signing out: $e');
+    }
   }
 
   Future<Map<String, dynamic>?> getUserData(String uid) async {
@@ -70,6 +104,3 @@ class AuthService with ChangeNotifier {
     }
   }
 }
-
-
-
